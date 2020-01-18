@@ -4,6 +4,7 @@ const {
 } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const PATHS = {
 	src: Path.resolve(__dirname, '../src'),
@@ -31,6 +32,7 @@ module.exports = {
 		}
 	},
 	plugins: [
+		new VueLoaderPlugin(),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
 				from: `${PATHS.src}/components`,
@@ -55,14 +57,26 @@ module.exports = {
 	],
 	resolve: {
 		alias: {
-			'~': PATHS.src
-		}
+			'vue$': 'vue/dist/vue.js',
+			'~': PATHS.src,
+		},
+		extensions: ['*', '.js', '.vue', '.json']
 	},
 	module: {
 		rules: [{
 				test: /\.mjs$/,
 				include: /node_modules/,
 				type: 'javascript/auto'
+			},
+			{
+				// Vue
+				test: /\.vue$/,
+				loader: 'vue-loader',
+				options: {
+					loader: {
+						scss: 'vue-style-loader!css-loader!scss-loader'
+					}
+				}
 			},
 			{
 				// Fonts
@@ -105,6 +119,19 @@ module.exports = {
 					},
 				}
 			]
+			},
+			{
+				// HTML
+				test: /\.html$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]'
+						}
+					}
+				],
+				exclude: `${PATHS.src}/index.html`
 			}
 		]
 	}

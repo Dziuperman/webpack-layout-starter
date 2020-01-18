@@ -46,6 +46,9 @@
 		"postcss-loader": "^3.0.0",
 		"sass-loader": "^8.0.1",
 		"style-loader": "^1.1.2",
+		"vue-loader": "^15.8.3",
+		"vue-style-loader": "^4.1.2",
+		"vue-template-compiler": "^2.6.11",
 		"webpack": "^4.41.5",
 		"webpack-cli": "^3.3.10",
 		"webpack-dev-server": "^3.10.1",
@@ -53,6 +56,9 @@
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.8.0",
-		"core-js": "^3.6.3"
+		"core-js": "^3.6.3",
+		"vue": "^2.6.11",
+		"vue-cli": "^2.9.6",
+		"vuex": "^3.1.2"
 	}
 }
